@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Management.Automation;
 using System.Collections;
+using System.Management.Automation.Runspaces;
 
 namespace BasicAppRemover
 {
@@ -18,15 +19,22 @@ namespace BasicAppRemover
         public BasicAppRemover()
         {
             InitializeComponent();
+            rs.Open();
+            
+
             initData();
             btnRemove.Click += BtnRemove_Click;
+            
         }
 
+        Runspace rs = RunspaceFactory.CreateRunspace();
+        Pipeline pipeline;
         PowerShell ps = PowerShell.Create();
-
+        Command cmd, cmd2;
 
         private void BtnRemove_Click(object sender, EventArgs e)
         {
+            pipeline = rs.CreatePipeline();
             ArrayList arrayList = new ArrayList();
 
             for(int i = 0; i < checkedListPackage.CheckedItems.Count; i++)   
@@ -42,11 +50,22 @@ namespace BasicAppRemover
                 MessageBox.Show("삭제를 진행합니다.");
 
                 foreach (String name in arrayList.ToArray()) {
-                    ps.AddCommand("Get-AppxPackage -AllUsers");
-                    ps.AddParameter("name", name);
-                    ps.AddStatement().AddCommand("Remove-AppxPackage");
+                    ps.AddCommand("Get-AppxPackage");
+                    ps.AddParameter("Name", name);
+                    ps.AddStatement();
+                    ps.AddCommand("Remove-AppxPackage");
                     ps.Invoke();
+                   
+                    pipeline.Commands.Clear();  
+                    
+                    cmd = new Command("Get-AppxPackage");
+                    cmd.Parameters.Add("Name", name);
+                    cmd2 = new Command("Remove-AppxPackage");
+                    pipeline.Commands.Add(cmd);
+                    pipeline.Commands.Add(cmd2);                               
                 }
+                pipeline.Invoke();
+
                 initData();
             }
             else
@@ -57,6 +76,7 @@ namespace BasicAppRemover
 
         private void initData()
         {
+            pipeline = rs.CreatePipeline();
             checkedListPackage.Items.Clear();
             //파워쉘 내에서 관리자 권한 실행 (새로운 파워쉘 실행 사용 x)
             /*ps.AddCommand("start-process");
@@ -66,13 +86,22 @@ namespace BasicAppRemover
             //설치된 패키지들의 이름만 검색 (현재 packageFullName이 출력됨 수정 필요)
             ps.AddCommand("Get-AppxPackage");
             ps.AddStatement();
-            ps.AddCommand("Select Name");
+            ps.AddCommand("Select-Object");
+            ps.AddParameter("Property", "Name");
 
-            foreach(PSObject result in ps.Invoke())
+
+            cmd = new Command("Get-AppxPackage");
+            cmd2 = new Command("Select-Object");
+            cmd2.Parameters.Add("Property","Name");
+
+            pipeline.Commands.Add(cmd);
+            pipeline.Commands.Add(cmd2);   
+
+            foreach (PSObject result in pipeline.Invoke())
             {
-                checkedListPackage.Items.Add(result.ToString());  
+                checkedListPackage.Items.Add(result.ToString().Replace("@{Name=","").Replace('}',' '));  
             }
-            
+            pipeline.Dispose();
         }
     }
 }

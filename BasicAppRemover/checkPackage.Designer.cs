@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOkay = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.listDeletePackage = new System.Windows.Forms.ListBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnOkay = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.listDeletePackage = new System.Windows.Forms.ListBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -50,6 +50,27 @@
             this.panel1.Size = new System.Drawing.Size(800, 100);
             this.panel1.TabIndex = 0;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Font = new System.Drawing.Font("굴림", 13F);
+            this.btnCancel.Location = new System.Drawing.Point(398, 6);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(390, 82);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "취소";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // btnOkay
+            // 
+            this.btnOkay.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOkay.Location = new System.Drawing.Point(12, 6);
+            this.btnOkay.Name = "btnOkay";
+            this.btnOkay.Size = new System.Drawing.Size(380, 82);
+            this.btnOkay.TabIndex = 0;
+            this.btnOkay.Text = "삭제";
+            this.btnOkay.UseVisualStyleBackColor = true;
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.listDeletePackage);
@@ -58,6 +79,17 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(800, 272);
             this.panel2.TabIndex = 1;
+            // 
+            // listDeletePackage
+            // 
+            this.listDeletePackage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listDeletePackage.FormattingEnabled = true;
+            this.listDeletePackage.ItemHeight = 12;
+            this.listDeletePackage.Location = new System.Drawing.Point(0, 0);
+            this.listDeletePackage.Name = "listDeletePackage";
+            this.listDeletePackage.Size = new System.Drawing.Size(800, 272);
+            this.listDeletePackage.Sorted = true;
+            this.listDeletePackage.TabIndex = 0;
             // 
             // panel3
             // 
@@ -77,37 +109,6 @@
             this.label1.Size = new System.Drawing.Size(456, 40);
             this.label1.TabIndex = 0;
             this.label1.Text = "제거할 패키지 다시 확인";
-            // 
-            // btnOkay
-            // 
-            this.btnOkay.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOkay.Location = new System.Drawing.Point(12, 6);
-            this.btnOkay.Name = "btnOkay";
-            this.btnOkay.Size = new System.Drawing.Size(380, 82);
-            this.btnOkay.TabIndex = 0;
-            this.btnOkay.Text = "삭제";
-            this.btnOkay.UseVisualStyleBackColor = true;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(398, 6);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(390, 82);
-            this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "취소";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            // 
-            // listDeletePackage
-            // 
-            this.listDeletePackage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listDeletePackage.FormattingEnabled = true;
-            this.listDeletePackage.ItemHeight = 12;
-            this.listDeletePackage.Location = new System.Drawing.Point(0, 0);
-            this.listDeletePackage.Name = "listDeletePackage";
-            this.listDeletePackage.Size = new System.Drawing.Size(800, 272);
-            this.listDeletePackage.Sorted = true;
-            this.listDeletePackage.TabIndex = 0;
             // 
             // checkPackage
             // 
