@@ -29,12 +29,12 @@ namespace BasicAppRemover
 
         Runspace rs = RunspaceFactory.CreateRunspace();
         Pipeline pipeline;
-        PowerShell ps = PowerShell.Create();
+        PowerShell ps;
         Command cmd, cmd2;
 
         private void BtnRemove_Click(object sender, EventArgs e)
         {
-            pipeline = rs.CreatePipeline();
+            
             ArrayList arrayList = new ArrayList();
 
             for(int i = 0; i < checkedListPackage.CheckedItems.Count; i++)   
@@ -48,24 +48,22 @@ namespace BasicAppRemover
             //삭제를 누르면 삭제 진행
             if (CheckPop.ShowDialog() == DialogResult.OK) {
                 MessageBox.Show("삭제를 진행합니다.");
+               
 
-                foreach (String name in arrayList.ToArray()) {
-                    ps.AddCommand("Get-AppxPackage");
-                    ps.AddParameter("Name", name);
-                    ps.AddStatement();
-                    ps.AddCommand("Remove-AppxPackage");
-                    ps.Invoke();
-                   
-                    pipeline.Commands.Clear();  
-                    
+                foreach (String value in arrayList.ToArray()) {
+                    pipeline = rs.CreatePipeline();
+
                     cmd = new Command("Get-AppxPackage");
-                    cmd.Parameters.Add("Name", name);
+                    //cmd.Parameters.Add("AllUsers");
+                    cmd.Parameters.Add("Name", value);
                     cmd2 = new Command("Remove-AppxPackage");
-                    pipeline.Commands.Add(cmd);
-                    pipeline.Commands.Add(cmd2);                               
-                }
-                pipeline.Invoke();
 
+                    pipeline.Commands.Add(cmd);
+                    pipeline.Commands.Add(cmd2);
+                    pipeline.Invoke();
+                    pipeline.Dispose();
+                }
+               
                 initData();
             }
             else
@@ -84,10 +82,7 @@ namespace BasicAppRemover
             ps.AddParameter("verb", "runAs");*/
 
             //설치된 패키지들의 이름만 검색 (현재 packageFullName이 출력됨 수정 필요)
-            ps.AddCommand("Get-AppxPackage");
-            ps.AddStatement();
-            ps.AddCommand("Select-Object");
-            ps.AddParameter("Property", "Name");
+            
 
 
             cmd = new Command("Get-AppxPackage");
