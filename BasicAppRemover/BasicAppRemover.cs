@@ -16,21 +16,17 @@ namespace BasicAppRemover
     
     public partial class BasicAppRemover : Form
     {
+        
+        
+
         public BasicAppRemover()
         {
             InitializeComponent();
-            rs.Open();
-            
 
             initData();
             btnRemove.Click += BtnRemove_Click;
             
         }
-
-        Runspace rs = RunspaceFactory.CreateRunspace();
-        Pipeline pipeline;
-        PowerShell ps;
-        Command cmd, cmd2;
 
         private void BtnRemove_Click(object sender, EventArgs e)
         {
@@ -41,62 +37,87 @@ namespace BasicAppRemover
             {
                 arrayList.Add(checkedListPackage.CheckedItems[i].ToString());    
             }
-
+             
             //최종 확인 팝업 띄우기
             checkPackage CheckPop = new checkPackage(arrayList.ToArray());
 
             //삭제를 누르면 삭제 진행
             if (CheckPop.ShowDialog() == DialogResult.OK) {
                 MessageBox.Show("삭제를 진행합니다.");
-               
 
-                foreach (String value in arrayList.ToArray()) {
-                    pipeline = rs.CreatePipeline();
+                Runspace runSpace = RunspaceFactory.CreateRunspace();
+                runSpace.Open();
+                PowerShell ps = PowerShell.Create();
+                ps.Runspace = runSpace;
+  
+                foreach (object value in arrayList.ToArray()) {
+                    ps.AddCommand("Get-AppxPackage");
+                    ps.AddArgument("AllUsers");;  
+                    ps.AddParameter("name", "*" + value.ToString().Trim() + "*");
+                    ps.AddCommand("Remove-AppxPackage");
+                    ps.AddStatement();
+                    //try
+                    //{
+                    //    ps.AddCommand("Remove-AppxPackage");
+                    //    ps.AddParameter("AllUsers");
+                    //    ps.AddParameter("Package", "*" + value.ToString() + "*");
+                    //    ps.AddStatement();
+                    //}
+                    //catch (Exception)
+                    //{
 
-                    cmd = new Command("Get-AppxPackage");
-                    //cmd.Parameters.Add("AllUsers");
-                    cmd.Parameters.Add("Name", value);
-                    cmd2 = new Command("Remove-AppxPackage");
-
-                    pipeline.Commands.Add(cmd);
-                    pipeline.Commands.Add(cmd2);
-                    pipeline.Invoke();
-                    pipeline.Dispose();
+                    //    throw;
+                    //}
+                    
+                    
                 }
-               
+
+                try
+                {
+                    ps.Invoke();
+
+                }
+                catch (Exception) {
+                    throw;
+                }
+
+                //ps.Invoke();
+                //checkedListPackage.Items.Clear();
+                //foreach (PSObject result in ps.Invoke())
+                //{
+                //    checkedListPackage.Items.Add(result.ToString());
+                //}
+                ps.Dispose();
+                runSpace.Dispose();
                 initData();
             }
             else
             {
-                MessageBox.Show("Cancel");
+                MessageBox.Show("취소");
             }
         }
 
         private void initData()
         {
-            pipeline = rs.CreatePipeline();
-            checkedListPackage.Items.Clear();
-            //파워쉘 내에서 관리자 권한 실행 (새로운 파워쉘 실행 사용 x)
-            /*ps.AddCommand("start-process");
-            ps.AddParameter("FilePath", "powershell");
-            ps.AddParameter("verb", "runAs");*/
-
-            //설치된 패키지들의 이름만 검색 (현재 packageFullName이 출력됨 수정 필요)
+            Runspace runSpace = RunspaceFactory.CreateRunspace();
+            runSpace.Open();
+            PowerShell ps = PowerShell.Create();
+            ps.Runspace = runSpace;
             
+            checkedListPackage.Items.Clear();
 
+            //설치된 패키지들의 이름만 검색
+            ps.AddCommand("Get-AppxPackage");           
+            ps.AddCommand("Select-Object");
+            ps.AddArgument("Name");
 
-            cmd = new Command("Get-AppxPackage");
-            cmd2 = new Command("Select-Object");
-            cmd2.Parameters.Add("Property","Name");
-
-            pipeline.Commands.Add(cmd);
-            pipeline.Commands.Add(cmd2);   
-
-            foreach (PSObject result in pipeline.Invoke())
+            foreach (PSObject result in ps.Invoke())
             {
                 checkedListPackage.Items.Add(result.ToString().Replace("@{Name=","").Replace('}',' '));  
+                //checkedListPackage.Items.Add(result.ToString().Replace("@{PackageFullName=", "").Replace('}', ' '));
             }
-            pipeline.Dispose();
+            ps.Dispose();
+            runSpace.Dispose();
         }
     }
 }
