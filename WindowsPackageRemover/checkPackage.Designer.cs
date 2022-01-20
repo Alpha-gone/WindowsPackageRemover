@@ -1,4 +1,4 @@
-﻿namespace BasicAppRemover
+﻿namespace WindowsPackageRemover
 {
     partial class checkPackage
     {

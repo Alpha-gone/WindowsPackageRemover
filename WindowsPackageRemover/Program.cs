@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace BasicAppRemover
+namespace WindowsPackageRemover
 {
     internal static class Program
     {
@@ -13,7 +13,7 @@ namespace BasicAppRemover
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new BasicAppRemover());
+            Application.Run(new WindowsPackageRemover());
         }
     }
 }

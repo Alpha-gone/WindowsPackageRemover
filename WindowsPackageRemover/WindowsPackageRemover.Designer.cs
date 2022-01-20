@@ -1,6 +1,6 @@
-﻿namespace BasicAppRemover
+﻿namespace WindowsPackageRemover
 {
-    partial class BasicAppRemover
+    partial class WindowsPackageRemover
     {
         /// <summary>
         /// 필수 디자이너 변수입니다.
@@ -45,7 +45,7 @@
             this.checkedListPackage.FormattingEnabled = true;
             this.checkedListPackage.HorizontalScrollbar = true;
             this.checkedListPackage.Location = new System.Drawing.Point(0, 0);
-            this.checkedListPackage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkedListPackage.Margin = new System.Windows.Forms.Padding(4);
             this.checkedListPackage.Name = "checkedListPackage";
             this.checkedListPackage.Size = new System.Drawing.Size(1028, 474);
             this.checkedListPackage.Sorted = true;
@@ -56,7 +56,7 @@
             this.btnRemove.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnRemove.Font = new System.Drawing.Font("굴림", 20F);
             this.btnRemove.Location = new System.Drawing.Point(0, 3);
-            this.btnRemove.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemove.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(1028, 91);
             this.btnRemove.TabIndex = 1;
@@ -68,7 +68,7 @@
             this.panel1.Controls.Add(this.btnRemove);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 544);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1028, 94);
             this.panel1.TabIndex = 2;
@@ -78,7 +78,7 @@
             this.panel2.Controls.Add(this.checkedListPackage);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 70);
-            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1028, 474);
             this.panel2.TabIndex = 3;
@@ -88,7 +88,7 @@
             this.panel3.Controls.Add(this.label1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1028, 70);
             this.panel3.TabIndex = 1;
@@ -104,7 +104,7 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "제거할 패키지 선택";
             // 
-            // BasicAppRemover
+            // WindowsPackageRemover
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -113,9 +113,9 @@
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("굴림", 13F);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "BasicAppRemover";
-            this.Text = "Form1";
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Name = "WindowsPackageRemover";
+            this.Text = "WindowsPackageRemover";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);

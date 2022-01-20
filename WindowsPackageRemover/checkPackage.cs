@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace BasicAppRemover
+namespace WindowsPackageRemover
 {
     public partial class checkPackage : Form
     {
