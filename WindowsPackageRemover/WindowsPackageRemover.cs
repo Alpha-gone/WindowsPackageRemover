@@ -80,9 +80,10 @@ namespace WindowsPackageRemover
                 ps.Runspace = runSpace;
 
                 //설치된 패키지들의 이름만 검색
+                //Get-AppxPackage | Select-Object -Property Name
                 ps.AddCommand("Get-AppxPackage");
                 ps.AddCommand("Select-Object");
-                ps.AddArgument("Name");
+                ps.AddParameter("Property", "Name");
 
                 //패키지들의 이름을 체크드리스트박스에 추가
                 foreach (PSObject result in ps.Invoke())
