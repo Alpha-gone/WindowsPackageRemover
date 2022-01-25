@@ -60,10 +60,10 @@ namespace WindowsPackageRemover
                     }
 
                     //명령어 실행 
-                    ps.Invoke();
-                    
-                    initPacakges();
+                    ps.Invoke();                  
                 }
+
+                initPacakges();
             }
             else
             {
