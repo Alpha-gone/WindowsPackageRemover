@@ -26,6 +26,7 @@ namespace WindowsPackageRemover
         {
             //삭제할 패키지를 저장할 목록
             ArrayList deletePacakges = new ArrayList();
+            string packageName;
 
             for (int i = 0; i < checkedListPackage.CheckedItems.Count; i++)
             {
@@ -48,10 +49,18 @@ namespace WindowsPackageRemover
                     //삭제할 패키지들로 파워쉘 명령어 추가 
                     foreach (object value in deletePacakges.ToArray())
                     {
+                        packageName = value.ToString().Trim();
+
+                        //코타나 선택시 패키지명으로 변경
+                        if (packageName.Equals("Microsoft.Cortana"))
+                        {
+                            packageName = "Microsoft.549981C3F5F10";
+                        }
+
                         ////Get-AppxPackage AllUsers -Name *value* | Remove-AppxPackage                        
                         ps.AddCommand("Get-AppxPackage");
                         ps.AddParameter("AllUsers");
-                        ps.AddParameter("name", "*" + value.ToString().Trim() + "*");
+                        ps.AddParameter("name", "*" + packageName + "*");
                         //자동 파이프라인
                         ps.AddCommand("Remove-AppxPackage");
 
