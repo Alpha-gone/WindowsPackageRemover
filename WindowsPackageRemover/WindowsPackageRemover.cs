@@ -74,6 +74,7 @@ namespace WindowsPackageRemover
         private void initPacakges()     
         {
             checkedListPackage.Items.Clear();
+            string packageName;
 
             using (PowerShell ps = PowerShell.Create())
             {
@@ -88,7 +89,15 @@ namespace WindowsPackageRemover
                 //패키지들의 이름을 체크드리스트박스에 추가
                 foreach (PSObject result in ps.Invoke())
                 {
-                    checkedListPackage.Items.Add(result.ToString().Replace("@{Name=", "").Replace('}', ' '));                    
+                    packageName = result.ToString().Replace("@{Name=", "").Replace('}', ' ');
+
+                    //코타나 이름 표시
+                    if (packageName == "Microsoft.549981C3F5F10")
+                    {
+                        checkedListPackage.Items.Add(packageName.Replace("549981C3F5F10", "Cortana"));
+                    }
+
+                    checkedListPackage.Items.Add(packageName);                    
                 }
             }
         }
